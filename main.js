@@ -13,7 +13,7 @@ let map = L.map("map", {
 
 // thematische Layer
 let themaLayer = {
-    stations: L.featureGroup().addTo(map)
+    stations: L.featureGroup().addTo(map),
 }
 
 // Hintergrundlayer
@@ -41,7 +41,8 @@ async function showStations(url) {
 
     // Wetterstationen mit Icons und Popups
     console.log(geojson);
-    L.geoJSON(geojson).addTo(map);
+    // Nur Standard Popups (ohne weitere Einstellungen)
+    L.geoJSON(geojson).addTo(themaLayer.stations);
 
 }
 showStations("https://static.avalanche.report/weather_stations/stations.geojson");
