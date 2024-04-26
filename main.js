@@ -42,7 +42,31 @@ async function showStations(url) {
     // Wetterstationen mit Icons und Popups
     console.log(geojson);
     // Nur Standard Popups (ohne weitere Einstellungen)
-    L.geoJSON(geojson).addTo(themaLayer.stations);
+    L.geoJSON(geojson, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: L.icon({
+                    iconUrl: `icons/wifi.png`,
+                    iconAnchor: [16, 37],
+                    popupAnchor: [0, -37]
+                })
+            })
+        },
+
+        onEachFeature: function (feature, layer) {
+            console.log(feature);
+            layer.bindPopup(`
+              <h4>${feature.properties.name}</h4>
+              <p><ul>
+              <li>Lufttemperatur (°C): ${feature.properties.name}</li>
+              <li>Relative Luftfeuchte (%): </li>
+              <li>Windgeschwindigkeit (km/h): </li>
+              <li>Schneehöhe (cm): </li>
+              </ul></p>
+              ${feature.properties.date}
+            `);
+        }
+    }).addTo(themaLayer.stations);
 
 }
 showStations("https://static.avalanche.report/weather_stations/stations.geojson");
