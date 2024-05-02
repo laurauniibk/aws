@@ -24,9 +24,9 @@ L.control.layers({
     "Relief avalanche.report": L.tileLayer(
         "https://static.avalanche.report/tms/{z}/{x}/{y}.webp", {
         attribution: `© <a href="https://sonny.4lima.de">Sonny</a>, <a href="https://www.eea.europa.eu/en/datahub/datahubitem-view/d08852bc-7b5f-4835-a776-08362e2fbf4b">EU-DEM</a>, <a href="https://lawinen.report/">avalanche.report</a>, all licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>`
-    }).addTo(map),
+    }),
     "Openstreetmap": L.tileLayer.provider("OpenStreetMap.Mapnik"),
-    "Esri WorldTopoMap": L.tileLayer.provider("Esri.WorldTopoMap"),
+    "Esri WorldTopoMap": L.tileLayer.provider("Esri.WorldTopoMap").addTo(map),
     "Esri WorldImagery": L.tileLayer.provider("Esri.WorldImagery")
 }, {
     "Wetterstationen": themaLayer.stations,
@@ -74,7 +74,7 @@ function showTemperature(geojson) {
 function showWind(geojson) {
     L.geoJSON(geojson, {
         filter: function (feature) {
-            if (feature.properties.WG > 0 && feature.properties.WG < 300) {
+            if (feature.properties.WG > 0 && feature.properties.WG < 250) {
                 return true;
             }
         },
@@ -82,8 +82,8 @@ function showWind(geojson) {
             let color = getColor(feature.properties.WG, COLORS.wind);
             return L.marker(latlng, {
                 icon: L.divIcon({
-                    className: "aws-div-icon",
-                    html: `<span style="background-color:${color};">${feature.properties.WG.toFixed(1)}</span>`
+                    className: "aws-div-icon-wind",
+                    html: `<span title="${feature.properties.WG.toFixed(1)} km/h"><i style="transform:rotate(${feature.properties.WR}deg);color:${color}" class="fa-solid fa-circle-arrow-up"></i></i></span>`
                 }
                 )
             })

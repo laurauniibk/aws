@@ -21,7 +21,7 @@ const COLORS = {
         { min: 20, max: 40, color: "#32c8ff" },
         { min: 40, max: 60, color: "#6496ff" },
         { min: 60, max: 80, color: "#9664ff" },
-        { min: 80, max: 200, color: "#ff3232" },
+        { min: 80, max: 250, color: "#ff3232" },
     ],
     snow: [
         { min: 0, max: 1, color: "#fff" },
