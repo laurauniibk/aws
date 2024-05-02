@@ -71,7 +71,6 @@ async function showStations(url) {
         },
 
         onEachFeature: function (feature, layer) {
-            console.log(feature);
             let pointInTime = new Date(feature.properties.date);
             layer.bindPopup(`
               <h4>${feature.properties.name} (${feature.geometry.coordinates[2]} m)</h4>
